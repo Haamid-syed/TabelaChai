@@ -1,0 +1,101 @@
+.hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: var(--section-padding);
+}
+
+.hero-container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.hero-subtitle {
+    position: absolute;
+    top: 15%;
+    left: var(--container-padding);
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    letter-spacing: 0.15em;
+    line-height: 1.6;
+    z-index: 10;
+}
+
+.subtitle-mask {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-subtitle .subtitle-mask {
+    transform: translateY(20px);
+    opacity: 0;
+    display: inline-block;
+}
+
+.hero-title-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+    /* Behind image */
+    pointer-events: none;
+}
+
+.hero-title {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.hero-mask {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.2em;
+    /* Prevent clipping descenders */
+    margin-bottom: -0.2em;
+}
+
+.hero-title-char {
+    display: inline-block;
+    transform: translateY(100%);
+    opacity: 0;
+    color: var(--color-pumpkin);
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hero-image-wrapper {
+    position: relative;
+    z-index: 5;
+    /* In front of text */
+    margin-top: 10vh;
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+.hero-image-container {
+    width: clamp(300px, 40vw, 600px);
+    position: relative;
+}
+
+.hero-img-real {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+    /* To make it blend seamlessly with dark background */
+    mask-image: radial-gradient(white, black);
+    -webkit-mask-image: -webkit-radial-gradient(white 60%, transparent 100%);
+}

@@ -1,0 +1,24 @@
+.marquee-section {
+    width: 100%;
+    overflow: hidden;
+    padding: 4vh 0;
+    display: flex;
+    background-color: var(--color-charcoal-dark);
+    border-top: 1px solid rgba(253, 128, 46, 0.2);
+    border-bottom: 1px solid rgba(253, 128, 46, 0.2);
+}
+
+.marquee-wrapper {
+    display: flex;
+    white-space: nowrap;
+}
+
+.marquee-part {
+    font-family: var(--font-body);
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    padding: 0 1vw;
+    display: flex;
+    align-items: center;
+}

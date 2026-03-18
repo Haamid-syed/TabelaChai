@@ -1,0 +1,117 @@
+.artisan-section {
+    width: 100%;
+    min-height: 120vh;
+    background-color: var(--color-sand);
+    color: var(--color-charcoal-dark);
+    position: relative;
+    overflow: hidden;
+    padding: 15vh 0;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    margin-top: -20px;
+    /* Slight overlap with section above */
+    z-index: 10;
+}
+
+.artisan-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+}
+
+.artisan-content {
+    max-width: 800px;
+    margin-top: 5vh;
+    z-index: 5;
+    position: relative;
+}
+
+.artisan-title {
+    font-size: clamp(4rem, 10vw, 12rem);
+    line-height: 0.85;
+    margin-bottom: 3rem;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    /* Blend mode to interact with background elements */
+    mix-blend-mode: color-burn;
+}
+
+.artisan-body {
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    font-weight: 500;
+    opacity: 0.9;
+    line-height: 1.3;
+    margin-left: clamp(2rem, 10vw, 15rem);
+    padding-left: 2rem;
+    border-left: 2px solid var(--color-pumpkin);
+}
+
+.block {
+    display: block;
+}
+
+/* Scattered Elements Using Generated Assets */
+.scattered-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    /* Behind the text */
+    opacity: 0.15;
+    /* Subtle background texture */
+    mix-blend-mode: multiply;
+}
+
+.scatter-item {
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+    filter: grayscale(20%) sepia(20%);
+}
+
+.item-cinnamon {
+    width: 400px;
+    height: 400px;
+    background-image: url('/assets/ritual_base.png');
+    top: -10%;
+    right: -5%;
+    transform: rotate(15deg);
+    border-radius: 20px;
+}
+
+.item-cardamom {
+    width: 500px;
+    height: 500px;
+    background-image: url('/assets/ritual_pour.png');
+    top: 40%;
+    left: -10%;
+    transform: rotate(-30deg);
+    border-radius: 40px;
+}
+
+.item-clove {
+    width: 300px;
+    height: 300px;
+    background-image: url('/assets/hero_kulhad.png');
+    bottom: -5%;
+    right: 15%;
+    transform: rotate(45deg);
+    border-radius: 30px;
+}
+
+.item-tea {
+    display: none;
+    /* Removed abstract gradient blob */
+}
+
+@media (max-width: 768px) {
+    .scattered-grid {
+        opacity: 0.05;
+    }
+}

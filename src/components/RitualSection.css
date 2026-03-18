@@ -1,0 +1,134 @@
+.ritual-section {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-charcoal);
+    position: relative;
+    overflow: hidden;
+}
+
+.ritual-nav {
+    position: absolute;
+    top: 50%;
+    left: 5vw;
+    transform: translateY(-50%);
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    z-index: 50;
+}
+
+.ritual-indicator-track {
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.ritual-indicator-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 33.33%;
+    background: var(--color-pumpkin);
+    box-shadow: 0 0 10px rgba(253, 128, 46, 0.5);
+}
+
+.ritual-numbers {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-text-primary);
+}
+
+.indicator-num {
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.ritual-wrapper {
+    width: 100%;
+    height: 100vh;
+}
+
+.ritual-step {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-left: 15vw;
+    /* Make room for nav */
+    position: relative;
+}
+
+.ritual-step-content {
+    position: relative;
+    z-index: 10;
+    max-width: 500px;
+}
+
+.ritual-step-title {
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.ritual-step-body {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.ritual-step-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    mask-image: linear-gradient(to right, transparent, black 30%);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
+    z-index: 1;
+}
+
+/* Simulated Image placehodlers using cinematic gradients */
+.bg-base {
+    background-image: url('/assets/ritual_base.png');
+}
+
+.bg-infusion {
+    background: linear-gradient(220deg, var(--color-pumpkin-dark) 0%, var(--color-charcoal-dark) 100%);
+    /* If Infusion fails, falls back to gradient */
+}
+
+.bg-pour {
+    background-image: url('/assets/ritual_pour.png');
+}
+
+.mt-4 {
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .ritual-nav {
+        display: none;
+    }
+
+    .ritual-step {
+        padding-left: 5vw;
+        padding-right: 5vw;
+    }
+
+    .ritual-step-bg {
+        width: 100%;
+        opacity: 0.3;
+        mask-image: none;
+        -webkit-mask-image: none;
+    }
+}
