@@ -1,41 +1,72 @@
+/* ============================================================
+   TABELA CHAI — DESIGN SYSTEM v2
+   Palette: Pumpkin + Charcoal + Cream
+   Aesthetic: Warm Artisan Cinema
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+
 :root {
-  /* Brand Colors */
-  --color-pumpkin: #FD802E;
+  /* ─── Brand Palette ─── */
+  --color-pumpkin:       #FD802E;
   --color-pumpkin-light: #FF9B58;
-  --color-pumpkin-dark: #D45B0C;
-  
-  --color-charcoal: #233D4C;
-  --color-charcoal-light: #315163;
-  --color-charcoal-dark: #12212B;
-  
-  --color-sand: #F7F5F0; /* Soft off-white for contrast */
-  --color-text-primary: #F7F5F0;
-  --color-text-secondary: rgba(247, 245, 240, 0.6);
+  --color-pumpkin-dark:  #C85E15;
+  --color-pumpkin-glow:  rgba(253, 128, 46, 0.18);
 
-  /* Typography */
-  --font-display: 'Playfair Display', serif; /* Represents Ogg/Editorial New vibe */
-  --font-body: 'DM Sans', sans-serif;
-  --font-mono: monospace;
+  --color-charcoal:      #1E3240;
+  --color-charcoal-light:#2B4459;
+  --color-charcoal-dark: #111C26;
+  --color-void:          #080D12;
 
-  /* Layout */
-  --section-padding: max(5vh, 4rem);
-  --container-width: 1400px;
-  --container-padding: max(4vw, 2rem);
-  --border-radius: 4px;
+  --color-cream:         #F5F0E8;
+  --color-cream-warm:    #EDE5D4;
+  --color-cream-dark:    #D4CAB8;
+
+  /* ─── Text ─── */
+  --color-text-light:    #F5F0E8;
+  --color-text-dim:      rgba(245, 240, 232, 0.55);
+  --color-text-dark:     #1E3240;
+  --color-text-dark-dim: rgba(30, 50, 64, 0.55);
+
+  /* ─── Typography ─── */
+  --font-display: 'Playfair Display', 'Cormorant Garamond', serif;
+  --font-serif:   'Cormorant Garamond', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+
+  /* ─── Layout ─── */
+  --container-width:    1440px;
+  --container-padding:  clamp(1.5rem, 5vw, 5rem);
+  --section-padding-v:  clamp(5rem, 12vh, 10rem);
+
+  /* ─── Motion ─── */
+  --ease-silk:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-snap:   cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-* {
+/* ─────────────────────────────────
+   RESET & BASE
+   ───────────────────────────────── */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html.lenis {
+html {
+  height: auto;
+  scroll-behavior: auto; /* Lenis handles this */
+}
+
+/* Lenis smooth-scroll compatibility */
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
 .lenis.lenis-smooth {
-  scroll-behavior: auto;
+  scroll-behavior: auto !important;
 }
 
 .lenis.lenis-smooth [data-lenis-prevent] {
@@ -44,20 +75,18 @@ html.lenis {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-charcoal);
-  color: var(--color-text-primary);
-  line-height: 1.5;
+  background-color: var(--color-void);
+  color: var(--color-text-light);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  /* Subtle Noise Texture applied globally */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.05;
   margin: 0;
 }
 
@@ -66,13 +95,9 @@ a {
   text-decoration: none;
 }
 
-ul {
-  list-style: none;
-}
+ul { list-style: none; }
 
-img, video {
-  max-width: 100%;
-  height: auto;
+img, video, canvas {
   display: block;
 }
 
@@ -84,7 +109,9 @@ button {
   color: inherit;
 }
 
-/* Utilities */
+/* ─────────────────────────────────
+   LAYOUT UTILITIES
+   ───────────────────────────────── */
 .container {
   width: 100%;
   max-width: var(--container-width);
@@ -92,62 +119,127 @@ button {
   padding: 0 var(--container-padding);
 }
 
-.text-pumpkin { color: var(--color-pumpkin); }
-.text-charcoal { color: var(--color-charcoal); }
-
-/* Cinematic Base Styles */
+/* ─────────────────────────────────
+   GRAIN OVERLAY (Film Texture)
+   ───────────────────────────────── */
 .grain-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
   z-index: 9999;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
 }
 
-.title-massive {
-  font-size: clamp(4rem, 15vw, 15rem);
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-}
-
+/* ─────────────────────────────────
+   BUTTONS
+   ───────────────────────────────── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   background: var(--color-pumpkin);
   color: var(--color-charcoal-dark);
-  padding: 1rem 2.5rem;
+  padding: 0.9rem 2.4rem;
+  font-family: var(--font-body);
   font-weight: 500;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  border-radius: 50px;
-  overflow: hidden;
+  border-radius: 100px;
   position: relative;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-silk), box-shadow 0.4s var(--ease-silk);
   will-change: transform;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.25) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .btn-primary::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: var(--color-pumpkin-light);
-  transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease-silk);
   z-index: -1;
 }
 
-.btn-primary:hover::after {
-  transform: translateY(0);
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(253, 128, 46, 0.4);
 }
 
-.btn-primary:hover {
-  transform: scale(1.05);
+.btn-primary:hover::before { opacity: 1; }
+.btn-primary:hover::after  { transform: translateY(0); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(245, 240, 232, 0.3);
+  color: var(--color-text-light);
+  padding: 0.9rem 2.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-pumpkin);
+  background: rgba(253, 128, 46, 0.08);
+}
+
+/* ─────────────────────────────────
+   TYPOGRAPHY UTILITIES
+   ───────────────────────────────── */
+.text-pumpkin  { color: var(--color-pumpkin); }
+.text-cream    { color: var(--color-cream); }
+.text-dim      { opacity: 0.55; }
+
+.display-xl {
+  font-size: clamp(5rem, 14vw, 14rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+}
+
+.label-sm {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────
+   SECTION TRANSITIONS (shared warm fades)
+   ───────────────────────────────── */
+.section-fade-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 200px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.section-fade-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 200px;
+  pointer-events: none;
+  z-index: 2;
 }

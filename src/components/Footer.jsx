@@ -1,36 +1,58 @@
 import './Footer.css';
 
 export default function Footer() {
+    const year = new Date().getFullYear();
+
     return (
         <footer className="footer-section">
+            <div className="footer-ambient" />
             <div className="container footer-container">
 
-                <div className="footer-top">
-                    <h2 className="footer-title text-pumpkin">THE RITUAL<br />AWAITS.</h2>
-
-                    <div className="footer-newsletter">
-                        <p className="newsletter-text">Join our journal for seasonal blends and stories from the estates.</p>
-                        <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-                            <input type="email" placeholder="YOUR EMAIL" className="newsletter-input" />
-                            <button type="submit" className="newsletter-submit">SUBSCRIBE</button>
-                        </form>
+                {/* ─── Big CTA ─── */}
+                <div className="footer-cta">
+                    <div className="footer-cta-eyebrow">
+                        <span className="footer-cta-rule" />
+                        Begin Your Journey
+                        <span className="footer-cta-rule" />
                     </div>
+                    <h2 className="footer-cta-title">
+                        THE RITUAL<br />
+                        <em>AWAITS.</em>
+                    </h2>
+                    <button className="btn-primary">Explore the Collection</button>
                 </div>
 
-                <div className="footer-bottom">
-                    <div className="footer-links-grid">
-                        <div className="footer-col">
-                            <h4 className="footer-col-title">SHOP</h4>
-                            <ul className="footer-col-links">
+                {/* ─── Newsletter + Links ─── */}
+                <div className="footer-body">
+                    <div className="footer-newsletter">
+                        <span className="footer-newsletter-label">The Journal</span>
+                        <p className="footer-newsletter-sub">
+                            Seasonal blends, estate stories, and the art of chai — delivered gently.
+                        </p>
+                        <form className="footer-form" onSubmit={e => e.preventDefault()}>
+                            <input
+                                type="email"
+                                className="footer-input"
+                                placeholder="Your email"
+                                aria-label="Subscribe to newsletter"
+                            />
+                            <button type="submit" className="footer-submit">Subscribe</button>
+                        </form>
+                    </div>
+
+                    <div className="footer-links">
+                        <div>
+                            <span className="footer-col-title">Shop</span>
+                            <ul className="footer-col-list">
                                 <li><a href="#">The Signature Blend</a></li>
                                 <li><a href="#">Single Estate Leaves</a></li>
                                 <li><a href="#">Artisan Kulhads</a></li>
                                 <li><a href="#">Gift Sets</a></li>
                             </ul>
                         </div>
-                        <div className="footer-col">
-                            <h4 className="footer-col-title">STORY</h4>
-                            <ul className="footer-col-links">
+                        <div>
+                            <span className="footer-col-title">Story</span>
+                            <ul className="footer-col-list">
                                 <li><a href="#">Our Estates</a></li>
                                 <li><a href="#">The Roasting Process</a></li>
                                 <li><a href="#">Journal</a></li>
@@ -38,10 +60,18 @@ export default function Footer() {
                             </ul>
                         </div>
                     </div>
+                </div>
 
-                    <div className="footer-meta">
-                        <span className="footer-logo">TABELA CHAI</span>
-                        <span className="footer-copyright">&copy; {new Date().getFullYear()} TABELA CHAI. ALL RIGHTS RESERVED.</span>
+                {/* ─── Bottom Bar ─── */}
+                <div className="footer-bottom-bar">
+                    <span className="footer-bottom-logo">TABELA CHAI</span>
+                    <span className="footer-bottom-copy">
+                        &copy; {year} Tabela Chai. All Rights Reserved.
+                    </span>
+                    <div className="footer-bottom-socials">
+                        <a href="#" className="footer-social-link">Instagram</a>
+                        <a href="#" className="footer-social-link">Pinterest</a>
+                        <a href="#" className="footer-social-link">TikTok</a>
                     </div>
                 </div>
             </div>

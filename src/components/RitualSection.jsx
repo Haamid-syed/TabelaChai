@@ -5,92 +5,138 @@ import './RitualSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const STEPS = [
+    {
+        num: '01',
+        tag: 'Foundation',
+        title: 'The Base',
+        text: 'We begin with Assam orthodox leaves from the upper slopes, carefully selected for their bold, malty character. Each batch is crushed by hand with whole, dry-roasted cardamom pods.',
+        detail: 'Assam — Single Estate'
+    },
+    {
+        num: '02',
+        tag: 'Transformation',
+        title: 'The Infusion',
+        text: 'Slow-boiled over a controlled flame with farm-fresh whole milk. The rolling boil unlocks the deep amber hue and marries the spice aromatics into one cohesive, layered brew.',
+        detail: '48 Minute Slow Steep'
+    },
+    {
+        num: '03',
+        tag: 'The Finish',
+        title: 'The Pour',
+        text: 'Aerated from height into handmade clay kulhads. The vessel breathes — earthy minerals from the fired clay mingle with the warmth of the brew in the final thirty seconds.',
+        detail: 'Clay Kulhad Finish'
+    }
+];
+
 export default function RitualSection() {
-    const containerRef = useRef(null);
+    const sectionRef = useRef(null);
 
     useEffect(() => {
-        let ctx = gsap.context(() => {
-            // Pinning the section while we scroll through steps
-            const steps = gsap.utils.toArray('.ritual-step');
-
-            ScrollTrigger.create({
-                trigger: containerRef.current,
-                start: 'top top',
-                end: '+=300%', // 3 steps
-                pin: true,
-                scrub: 1,
-                animation: gsap.to(steps, {
-                    yPercent: -100 * (steps.length - 1),
-                    ease: 'none',
-                })
+        const ctx = gsap.context(() => {
+            // Header reveal
+            gsap.to('.ritual-header', {
+                opacity: 1,
+                y: 0,
+                duration: 1.1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.ritual-header',
+                    start: 'top 85%',
+                }
             });
 
-            // Step indicators logic
+            // Each step staggered reveal
+            const steps = gsap.utils.toArray('.ritual-step');
             steps.forEach((step, i) => {
-                ScrollTrigger.create({
-                    trigger: containerRef.current,
-                    start: `top+=${i * 100}% top`,
-                    end: `top+=${(i + 1) * 100}% top`,
-                    onToggle: self => {
-                        if (self.isActive) {
-                            gsap.to('.ritual-indicator-line', {
-                                height: `${(i + 1) * 33.33}%`,
-                                duration: 0.5,
-                                ease: "power2.out"
-                            });
-                            gsap.to(`.indicator-num`, { opacity: 0.3, duration: 0.3 });
-                            gsap.to(`#num-${i}`, { opacity: 1, duration: 0.3 });
-                        }
+                gsap.to(step, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: step,
+                        start: 'top 82%',
                     }
+                });
+
+                // Activate circle highlight when step enters viewport center
+                ScrollTrigger.create({
+                    trigger: step,
+                    start: 'top 60%',
+                    end: 'bottom 40%',
+                    onEnter: () => step.classList.add('active'),
+                    onLeave: () => step.classList.remove('active'),
+                    onEnterBack: () => step.classList.add('active'),
+                    onLeaveBack: () => step.classList.remove('active'),
                 });
             });
 
-        }, containerRef);
+            // CTA reveal
+            gsap.to('.ritual-cta', {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.ritual-cta',
+                    start: 'top 88%',
+                }
+            });
+
+        }, sectionRef);
 
         return () => ctx.revert();
     }, []);
 
     return (
-        <section className="ritual-section" ref={containerRef}>
-
-            {/* Scroll Progress Side Nav */}
-            <div className="ritual-nav">
-                <div className="ritual-indicator-track">
-                    <div className="ritual-indicator-line"></div>
+        <section className="ritual-section" ref={sectionRef} id="ritual">
+            <div className="container">
+                {/* Header */}
+                <div className="ritual-header">
+                    <div className="ritual-eyebrow">
+                        <span className="ritual-eyebrow-rule" />
+                        From Leaf to Cup
+                        <span className="ritual-eyebrow-rule" />
+                    </div>
+                    <h2 className="ritual-headline">
+                        The Brewing<br />
+                        <em>Ritual</em>
+                    </h2>
                 </div>
-                <div className="ritual-numbers">
-                    <span className="indicator-num" id="num-0">01</span>
-                    <span className="indicator-num" id="num-1">02</span>
-                    <span className="indicator-num" id="num-2">03</span>
+
+                {/* Steps */}
+                <div className="ritual-steps">
+                    {STEPS.map(({ num, tag, title, text, detail }) => (
+                        <div className="ritual-step" key={num}>
+                            {/* Left: number node */}
+                            <div className="ritual-step-node">
+                                <div className="step-node-circle">{num}</div>
+                            </div>
+
+                            {/* Right: content */}
+                            <div className="ritual-step-body">
+                                <span className="ritual-step-tag">{tag}</span>
+                                <h3 className="ritual-step-title">{title}</h3>
+                                <p className="ritual-step-text">{text}</p>
+                                <div className="ritual-step-detail">
+                                    <span className="step-detail-line" />
+                                    {detail}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* CTA */}
+                <div className="ritual-cta">
+                    <p>Ready to experience the craft?</p>
+                    <button className="btn-primary">Craft Your Ritual</button>
                 </div>
             </div>
 
-            <div className="ritual-wrapper">
-                <div className="ritual-step step-1">
-                    <div className="ritual-step-content">
-                        <h3 className="ritual-step-title text-pumpkin">01<br />THE BASE</h3>
-                        <p className="ritual-step-body">We start with Assam orthodox leaves spanning the upper slopes, crushed by hand with dry cardamom pods and cloves.</p>
-                    </div>
-                    <div className="ritual-step-bg bg-base"></div>
-                </div>
-
-                <div className="ritual-step step-2">
-                    <div className="ritual-step-content">
-                        <h3 className="ritual-step-title text-pumpkin">02<br />THE INFUSION</h3>
-                        <p className="ritual-step-body">Slow-boiled over an open flame with farm-fresh milk. The precise moment of rolling boil unlocks the deep amber hue.</p>
-                    </div>
-                    <div className="ritual-step-bg bg-infusion"></div>
-                </div>
-
-                <div className="ritual-step step-3">
-                    <div className="ritual-step-content">
-                        <h3 className="ritual-step-title text-pumpkin">03<br />THE POUR</h3>
-                        <p className="ritual-step-body">Aerated from a height into clay kulhads, marrying the earthy minerals of soil with the rich warmth of the brew.</p>
-                        <button className="btn-primary mt-4">Craft Your Ritual</button>
-                    </div>
-                    <div className="ritual-step-bg bg-pour"></div>
-                </div>
-            </div>
+            {/* Bottom fade transition */}
+            <div className="ritual-bottom-fade" />
         </section>
     );
 }

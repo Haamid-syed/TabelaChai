@@ -1,24 +1,77 @@
+/* ─── Marquee ─── */
 .marquee-section {
-    width: 100%;
-    overflow: hidden;
-    padding: 4vh 0;
-    display: flex;
-    background-color: var(--color-charcoal-dark);
-    border-top: 1px solid rgba(253, 128, 46, 0.2);
-    border-bottom: 1px solid rgba(253, 128, 46, 0.2);
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 2.2rem 0;
+  /* Match the void so it blends with hero above */
+  background: var(--color-void);
+  z-index: 10;
+}
+
+/* Warm orange tinted separator line */
+.marquee-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(253, 128, 46, 0.35) 30%, rgba(253, 128, 46, 0.35) 70%, transparent);
+}
+
+.marquee-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(253, 128, 46, 0.2) 30%, rgba(253, 128, 46, 0.2) 70%, transparent);
+}
+
+/* Subtle warm amber band */
+.marquee-band {
+  position: absolute;
+  inset: 0;
+  background: rgba(253, 128, 46, 0.03);
+}
+
+/* Fade bottom edge into artisan section's top radius */
+.marquee-section::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--color-void));
+  z-index: 5;
+  pointer-events: none;
 }
 
 .marquee-wrapper {
-    display: flex;
-    white-space: nowrap;
+  display: flex;
+  white-space: nowrap;
+  position: relative;
 }
 
 .marquee-part {
-    font-family: var(--font-body);
-    font-size: clamp(1.5rem, 3vw, 3rem);
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    padding: 0 1vw;
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1.5vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-pumpkin);
+  padding-right: 0;
+  flex-shrink: 0;
+  opacity: 0.88;
+}
+
+.marquee-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-pumpkin);
+  margin: 0 2.5rem;
+  opacity: 0.5;
+  flex-shrink: 0;
 }

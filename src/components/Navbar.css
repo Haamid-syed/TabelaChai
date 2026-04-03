@@ -1,72 +1,133 @@
+/* ─── Navbar ─── */
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1.5rem 0;
-    z-index: 1000;
-    mix-blend-mode: difference;
-    /* Creates a high-end inversion effect over light/dark backgrounds */
-    pointer-events: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 500;
+  padding: 0;
+  /* Warm glass effect */
+  transition: background 0.5s ease, border-color 0.5s ease, padding 0.4s ease;
+}
+
+/* Scrolled state applied via JS */
+.navbar.scrolled {
+  background: rgba(8, 13, 18, 0.82);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  border-bottom: 1px solid rgba(253, 128, 46, 0.12);
 }
 
 .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 72px;
 }
 
 .nav-links {
-    display: flex;
-    gap: 3rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.nav-item {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  opacity: 0;
+  transform: translateY(-8px);
 }
 
 .nav-item a {
-    position: relative;
-    transition: opacity 0.3s ease;
-}
-
-.nav-item a:hover {
-    opacity: 0.6;
+  position: relative;
+  color: var(--color-text-light);
+  transition: color 0.3s ease;
 }
 
 .nav-item a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: currentColor;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--color-pumpkin);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-silk);
 }
 
+.nav-item a:hover { color: var(--color-pumpkin); }
 .nav-item a:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
-.nav-logo {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-    color: #fff;
-    /* White base for difference blend mode to turn into Pumpkin against charcoal */
+/* Centered Logo */
+.nav-logo-wrap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.nav-logo-text {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-cream);
+}
+
+.nav-logo-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-pumpkin);
+  box-shadow: 0 0 10px rgba(253, 128, 46, 0.6);
+}
+
+/* Cart badge */
+.nav-cart {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-cart:hover { color: var(--color-pumpkin); }
+
+.cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-pumpkin);
+  color: var(--color-charcoal-dark);
+  font-size: 0.65rem;
+  font-weight: 700;
 }
 
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
+  .nav-links {
+    display: none;
+  }
+  .nav-logo-text {
+    font-size: 1.2rem;
+  }
 }

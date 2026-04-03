@@ -1,134 +1,221 @@
+/* ─── Ritual Section ─── */
 .ritual-section {
-    width: 100%;
-    height: 100vh;
-    background-color: var(--color-charcoal);
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  background: var(--color-charcoal);
+  overflow: hidden;
+  /* This section uses vertical stacked steps — no more scroll pin */
+  padding: clamp(6rem, 12vh, 10rem) 0;
 }
 
-.ritual-nav {
-    position: absolute;
-    top: 50%;
-    left: 5vw;
-    transform: translateY(-50%);
-    height: 50vh;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    z-index: 50;
+/* Subtle texture */
+.ritual-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
 }
 
-.ritual-indicator-track {
-    width: 2px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    position: relative;
+/* ─── Header ─── */
+.ritual-header {
+  text-align: center;
+  margin-bottom: clamp(4rem, 8vh, 7rem);
+  opacity: 0;
+  transform: translateY(30px);
 }
 
-.ritual-indicator-line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 33.33%;
-    background: var(--color-pumpkin);
-    box-shadow: 0 0 10px rgba(253, 128, 46, 0.5);
+.ritual-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-pumpkin);
+  font-family: var(--font-body);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  opacity: 0.85;
 }
 
-.ritual-numbers {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: var(--color-text-primary);
+.ritual-eyebrow-rule {
+  display: inline-block;
+  width: 25px;
+  height: 1px;
+  background: var(--color-pumpkin);
 }
 
-.indicator-num {
-    opacity: 0.3;
-    transition: opacity 0.3s ease;
+.ritual-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 400;
+  color: var(--color-cream);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
-.ritual-wrapper {
-    width: 100%;
-    height: 100vh;
+/* ─── Steps Grid ─── */
+.ritual-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
+/* Vertical timeline line */
+.ritual-steps::before {
+  content: '';
+  position: absolute;
+  left: clamp(1.5rem, 4vw, 3.5rem);
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(253, 128, 46, 0.4) 15%, rgba(253, 128, 46, 0.4) 85%, transparent);
+}
+
+/* ─── Individual Step ─── */
 .ritual-step {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    padding-left: 15vw;
-    /* Make room for nav */
-    position: relative;
+  display: grid;
+  grid-template-columns: clamp(4rem, 8vw, 7rem) 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+  padding: clamp(3rem, 6vh, 5rem) 0;
+  opacity: 0;
+  transform: translateY(40px);
+  position: relative;
 }
 
-.ritual-step-content {
-    position: relative;
-    z-index: 10;
-    max-width: 500px;
+/* Separator between steps */
+.ritual-step + .ritual-step {
+  border-top: 1px solid rgba(245, 240, 232, 0.06);
+}
+
+/* ─── Step Number / Node ─── */
+.ritual-step-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding-top: 0.3rem;
+  position: relative;
+}
+
+.step-node-circle {
+  width: clamp(42px, 6vw, 52px);
+  height: clamp(42px, 6vw, 52px);
+  border-radius: 50%;
+  border: 1px solid rgba(253, 128, 46, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  color: var(--color-pumpkin);
+  background: rgba(253, 128, 46, 0.06);
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+  cursor: default;
+  position: relative;
+  z-index: 2;
+}
+
+.ritual-step.active .step-node-circle {
+  border-color: var(--color-pumpkin);
+  background: rgba(253, 128, 46, 0.15);
+  box-shadow: 0 0 24px rgba(253, 128, 46, 0.3), inset 0 0 20px rgba(253, 128, 46, 0.05);
+}
+
+/* ─── Step Content ─── */
+.ritual-step-body {
+  padding-bottom: 1rem;
+}
+
+.ritual-step-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-pumpkin);
+  font-family: var(--font-body);
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  display: block;
+  opacity: 0.8;
 }
 
 .ritual-step-title {
-    font-size: clamp(3rem, 5vw, 5rem);
-    line-height: 1.1;
-    margin-bottom: 2rem;
-    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 400;
+  color: var(--color-cream);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
 }
 
-.ritual-step-body {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    opacity: 0.9;
+.ritual-step-text {
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.75;
+  color: var(--color-text-dim);
+  max-width: 520px;
 }
 
-.ritual-step-bg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    mask-image: linear-gradient(to right, transparent, black 30%);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
-    z-index: 1;
+.ritual-step-detail {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-pumpkin);
+  opacity: 0.7;
 }
 
-/* Simulated Image placehodlers using cinematic gradients */
-.bg-base {
-    background-image: url('/assets/ritual_base.png');
+.step-detail-line {
+  width: 20px;
+  height: 1px;
+  background: var(--color-pumpkin);
 }
 
-.bg-infusion {
-    background: linear-gradient(220deg, var(--color-pumpkin-dark) 0%, var(--color-charcoal-dark) 100%);
-    /* If Infusion fails, falls back to gradient */
+/* ─── CTA at bottom ─── */
+.ritual-cta {
+  text-align: center;
+  margin-top: clamp(4rem, 8vh, 6rem);
+  opacity: 0;
+  transform: translateY(20px);
 }
 
-.bg-pour {
-    background-image: url('/assets/ritual_pour.png');
+.ritual-cta p {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  margin-bottom: 1.5rem;
 }
 
-.mt-4 {
-    margin-top: 2rem;
+/* ─── Bottom blend into footer ─── */
+.ritual-bottom-fade {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent, var(--color-charcoal-dark));
+  pointer-events: none;
+  z-index: 2;
 }
 
+/* ─── Responsive ─── */
 @media (max-width: 768px) {
-    .ritual-nav {
-        display: none;
-    }
-
-    .ritual-step {
-        padding-left: 5vw;
-        padding-right: 5vw;
-    }
-
-    .ritual-step-bg {
-        width: 100%;
-        opacity: 0.3;
-        mask-image: none;
-        -webkit-mask-image: none;
-    }
+  .ritual-steps::before {
+    left: 1.2rem;
+  }
+  .ritual-step {
+    grid-template-columns: 3.5rem 1fr;
+    gap: 1.5rem;
+  }
+  .step-node-circle {
+    width: 38px;
+    height: 38px;
+    font-size: 0.85rem;
+  }
 }
