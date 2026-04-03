@@ -53,9 +53,9 @@ export default function Hero() {
                 setLoadedCount(count);
                 if (count === FRAME_COUNT) {
                     framesRef.current = loaded;
-                    // Enforce minimum loader display of 2.5s
+                    // Enforce minimum loader display of 1.2s
                     const elapsed = Date.now() - loaderShownAt.current;
-                    const delay   = Math.max(0, 2500 - elapsed);
+                    const delay   = Math.max(0, 800 - elapsed);
                     setTimeout(() => setReady(true), delay);
                 }
             };
@@ -66,9 +66,9 @@ export default function Hero() {
                 setLoadedCount(count);
                 if (count === FRAME_COUNT) {
                     framesRef.current = loaded;
-                    // Enforce minimum loader display of 2.5s
+                    // Enforce minimum loader display of 1.2s
                     const elapsed = Date.now() - loaderShownAt.current;
-                    const delay   = Math.max(0, 2500 - elapsed);
+                    const delay   = Math.max(0, 800 - elapsed);
                     setTimeout(() => setReady(true), delay);
                 }
             };

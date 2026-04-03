@@ -73,6 +73,24 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
+/* ─── Global Reset & Scroll ─── */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-void);
+  font-family: var(--font-body);
+  color: var(--color-text-light);
+  overflow-x: hidden;
+  /* Standard way to hide scrollbar while keeping scroll functionality */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   font-family: var(--font-body);
   background-color: var(--color-void);
