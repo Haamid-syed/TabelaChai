@@ -23,6 +23,8 @@ jspm_packages/
 # Optional eslint cache
 .eslintcache
 
+handover.md
+
 # Optional stylelint cache
 .stylelintcache
 
