@@ -155,18 +155,19 @@
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(4.5rem, 16vw, 17rem);
+  font-size: clamp(4rem, 14vw, 14.5rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 0.9;
   color: var(--color-pumpkin);
   text-transform: uppercase;
   mix-blend-mode: screen;
-  /* Toned down — warm but not blinding */
-  opacity: 0.75;
+  /* Reduced size and added subtle blur as requested */
+  opacity: 0.7;
+  filter: blur(1.5px);
   text-shadow:
-    0 0 60px rgba(253, 128, 46, 0.2),
-    0 0 20px rgba(253, 128, 46, 0.1);
+    0 0 80px rgba(253, 128, 46, 0.25),
+    0 0 30px rgba(253, 128, 46, 0.15);
 }
 
 .hero-mask {

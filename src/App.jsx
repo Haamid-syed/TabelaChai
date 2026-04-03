@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import Lenis from '@studio-freight/lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Marquee from './components/Marquee'
-import ArtisanSection from './components/ArtisanSection'
-import RitualSection from './components/RitualSection'
-import Footer from './components/Footer'
+import Navbar from './components/Navbar/Navbar'
+import Hero from './components/Hero/Hero'
+import Marquee from './components/Marquee/Marquee'
+import ArtisanSection from './components/ArtisanSection/ArtisanSection'
+import RitualSection from './components/RitualSection/RitualSection'
+import Footer from './components/Footer/Footer'
 
 gsap.registerPlugin(ScrollTrigger)
 

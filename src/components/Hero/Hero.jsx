@@ -5,7 +5,9 @@ import './Hero.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FRAME_COUNT = 192;
+const FRAME_COUNT  = 180;
+const CANVAS_WIDTH  = 1080;
+const CANVAS_HEIGHT = 1920;
 
 export default function Hero() {
     const heroRef      = useRef(null);
