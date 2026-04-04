@@ -36,48 +36,61 @@ export default function Hero() {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     }, []);
 
-    // Preload all frames
+    const BUFFER_COUNT = 30; // Number of frames needed to start the experience
+
+    // Preload all frames with a streaming/buffered approach
     useEffect(() => {
         let mounted = true;
         let count   = 0;
+        let isReadySet = false;
 
-        // Use a fresh array so indices stay stable
-        const loaded = new Array(FRAME_COUNT);
+        // Initialize ref array immediately
+        framesRef.current = new Array(FRAME_COUNT);
 
         framePaths.forEach((src, i) => {
             const img = new Image();
             img.decoding = 'async';
             img.src = src;
+            
             img.onload = () => {
                 if (!mounted) return;
-                loaded[i] = img;
+                
+                // Store frame immediately for streaming access
+                framesRef.current[i] = img;
                 count++;
                 setLoadedCount(count);
-                if (count === FRAME_COUNT) {
-                    framesRef.current = loaded;
-                    // Enforce minimum loader display of 1.2s
+
+                // Initial frame render as soon as frame 0 lands
+                if (i === 0 && !ready) {
+                    // Slight delay to ensure DOM is ready for canvas ops
+                    requestAnimationFrame(() => renderFrame(0));
+                }
+
+                // Unlock the site once the buffer is met
+                if (count >= BUFFER_COUNT && !isReadySet) {
+                    isReadySet = true;
+                    // Enforce a small minimum loader display for branding/polish
                     const elapsed = Date.now() - loaderShownAt.current;
                     const delay   = Math.max(0, 800 - elapsed);
                     setTimeout(() => setReady(true), delay);
                 }
             };
+
             img.onerror = () => {
-                // Still bump count so we don't stall at 99%
                 if (!mounted) return;
                 count++;
                 setLoadedCount(count);
-                if (count === FRAME_COUNT) {
-                    framesRef.current = loaded;
-                    // Enforce minimum loader display of 1.2s
-                    const elapsed = Date.now() - loaderShownAt.current;
-                    const delay   = Math.max(0, 800 - elapsed);
-                    setTimeout(() => setReady(true), delay);
+                
+                // Still unlock even on errors so we don't stall
+                if (count >= BUFFER_COUNT && !isReadySet) {
+                    isReadySet = true;
+                    setTimeout(() => setReady(true), 800);
                 }
             };
         });
 
         return () => { mounted = false; };
-    }, [framePaths]);
+    }, [framePaths, renderFrame, ready]);
 
     // Main GSAP setup — only fires when all frames are ready
     useEffect(() => {

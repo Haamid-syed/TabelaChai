@@ -165,6 +165,7 @@
   /* Reduced size and added subtle blur as requested */
   opacity: 0.7;
   filter: blur(1.5px);
+  will-change: transform, opacity;
   text-shadow:
     0 0 80px rgba(253, 128, 46, 0.25),
     0 0 30px rgba(253, 128, 46, 0.15);
